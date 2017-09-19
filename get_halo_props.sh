@@ -15,7 +15,7 @@ python get_tree_range.py $tree_start1 $tree_start2 $tree_start3 $tree_end1 $tree
 while IFS='' read -r tree || [[ -n "$tree" ]]; do
     echo " Working on: $tree"
 
-    cp /fs2/shared/petulaa/sorted_trees/${tree}.dat .
+    cp $DATA_PATH .
     
     treenum1=$(echo "$tree" | awk -F '_' '{print $2}' )
     treenum2=$(echo "$tree" | awk -F '_' '{print $3}' )
