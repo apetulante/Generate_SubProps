@@ -3,15 +3,78 @@
 #include <math.h>
 
 
-void write_submerger(FILE *out_file, int *sub_merger_start, int *sub_merger_end, int *main_halo_start, int *main_halo_end, int num_subs) {
+void write_submerger(FILE *out_file, char *tree_name, int halo_num, int *sub_merger_start, int *sub_merger_end, int *main_halo_start, 
+                     int *main_halo_end, int num_subs, double *a_main, double *ID_main, double *desc_scale_main, double *descID_main,
+                     double *num_prog_main, double *pid_main, double *Upid_main, double *desc_pid_main, double *phantom_main, 
+                     double *SAM_mvir_main, double *mvir_main, double *rvir_main, double *r_s_main, double *Vrms_main, double *mmp_main, 
+                     double *last_MM_scale_main, double *Vmax_main, double *x_coord_main, double *y_coord_main, double *z_coord_main, 
+                     double *x_vel_main, double *y_vel_main, double *z_vel_main, double *x_ang_main, double *y_ang_main, double *z_ang_main, 
+                     double *spin_main, double *breadth_first_ID_main, double *depth_first_ID_main, double *tree_root_ID_main, 
+                     double *orig_halo_ID_main, double *snap_num_main, double *next_coprog_dep_ID_main, double *last_mainleaf_dep_ID_main, 
+                     double *tidal_F_main, double *tidal_ID_main, double *r_s_klyp_main, double *M200b_all_main,
+                     double *M200b_1_main, double *M200b_2_main, double *M200b_3_main, double *M200b_4_main, double *Xoff_main, double *Voff_main, 
+                     double *spin_bull_main, double *b_to_a_main, double *c_to_a_main, double *A_x_main, double *A_y_main, double *A_z_main, 
+                     double *T_U_rat_main, double *M_pe_main, double *halfmass_r_main, double *misc_54_main, double *misc_55_main, double *misc_56_main,
+                     double *misc_57_main, double *misc_58_main, double *misc_59_main, double *misc_60_main, double *num_subs_main, 
+                     double *max_subs_mass_main, double *a, double *ID, double *desc_scale, 
+                     double *descID, double *num_prog, double *pid, double *Upid, double *desc_pid, double *phantom, double *SAM_mvir, 
+                     double *mvir, double *rvir, double *r_s, double *Vrms, double *mmp, double *last_MM_scale, 
+                     double *Vmax, double *x_coord, double *y_coord, double *z_coord, double *x_vel, double *y_vel, 
+                     double *z_vel, double *x_ang, double *y_ang, double *z_ang, double *spin, double *breadth_first_ID, 
+                     double *depth_first_ID, double *tree_root_ID, double *orig_halo_ID, double *snap_num, 
+                     double *next_coprog_dep_ID, double *last_mainleaf_dep_ID, double *tidal_F, double *tidal_ID, 
+                     double *r_s_klyp, double *M200b_all, double *M200b_1, double *M200b_2, double *M200b_3, 
+                     double *M200b_4, double *Xoff, double *Voff, double *spin_bull, double *b_to_a, double *c_to_a, 
+                     double *A_x, double *A_y, double *A_z, double *T_U_rat, double *M_pe, double *halfmass_r, 
+                     double *misc_54, double *misc_55, double *misc_56, double *misc_57, double *misc_58, double *misc_59, 
+                     double *misc_60) {
 
      int l;
- //    printf("Writing the subs merger file...\n");
+
      for (l=0; l<num_subs; l++) {
+        fprintf(out_file, "%s ", tree_name);
+        fprintf(out_file, "%d ", halo_num);
         fprintf(out_file, "%d ", sub_merger_start[l]);
-        fprintf(out_file, "%d ", sub_merger_end[l]);
-        fprintf(out_file, "%d ", main_halo_start[l]);
-        fprintf(out_file, "%d ", main_halo_end[l]);
+        fprintf(out_file, "%lf ", ID[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", mvir[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", mvir_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", rvir[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", rvir_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", rvir[sub_merger_start[l]]/r_s_klyp[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", rvir_main[main_halo_start[l]]/r_s_klyp_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", spin[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", spin_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", spin_bull[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", spin_bull_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", x_vel[sub_merger_start[l]] - x_vel_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", y_vel[sub_merger_start[l]] - y_vel_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", z_vel[sub_merger_start[l]] - z_vel_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", x_coord[sub_merger_start[l]] - x_coord_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", y_coord[sub_merger_start[l]] - y_coord_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", z_coord[sub_merger_start[l]] - z_coord_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", a[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", Vmax[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", b_to_a[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", c_to_a[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", b_to_a_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", c_to_a_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", last_MM_scale[sub_merger_start[l]]);
+        fprintf(out_file, "%lf ", last_MM_scale_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", num_subs_main[main_halo_start[l]]);
+        fprintf(out_file, "%lf ", max_sub_mass_main[main_halo_start[l]]);
+        fprintf(out_file, "0 ");
+        fprintf(out_file, "%lf ", a[sub_merger_end[l]]);
+        fprintf(out_file, "%lf ", mvir[sub_merger_end[l]]);
+        fprintf(out_file, "%lf ", mvir_main[main_halo_end[l]]);
+        fprintf(out_file, "%lf ", rvir_main[main_halo_end[l]]);
+        fprintf(out_file, "%lf ", x_vel[sub_merger_end[l]] - x_vel_main[main_halo_end[l]]);
+        fprintf(out_file, "%lf ", y_vel[sub_merger_end[l]] - y_vel_main[main_halo_end[l]]);
+        fprintf(out_file, "%lf ", z_vel[sub_merger_end[l]] - z_vel_main[main_halo_end[l]]);
+        fprintf(out_file, "%lf ", rvir[sub_merger_end[l]]/r_s_klyp[sub_merger_end[l]]);
+        fprintf(out_file, "%lf ", spin[sub_merger_end[l]]);
+        fprintf(out_file, "%lf ", spin_bull[sub_merger_end[l]]);
+        fprintf(out_file, "%lf ", last_MM_scale[sub_merger_end[l]]);
+        fprintf(out_file, "%lf ", last_MM_scale_main[main_halo_end[l]]);
         fprintf(out_file, "\n"); 
      }
 }
@@ -94,6 +157,8 @@ void write_MainHalo(FILE *out_file2, double *a_main, double *ID_main, double *de
         fprintf(out_file2, "%lf ", misc_58_main[k]);
         fprintf(out_file2, "%lf ", misc_59_main[k]);
         fprintf(out_file2, "%lf ", misc_60_main[k]);
+        fprintf(out_file2, "%lf ", num_subs_main[k]);
+        fprintf(out_file2, "%lf ", max_sub_mass_main[k]);
         fprintf(out_file2, "\n");
       }
   }
@@ -117,8 +182,8 @@ void calc_subs(int *len_main, int *num_subs, double *a, double *ID, double *desc
   double *M200b_1_main, double *M200b_2_main, double *M200b_3_main, double *M200b_4_main, double *Xoff_main, double *Voff_main, 
   double *spin_bull_main, double *b_to_a_main, double *c_to_a_main, double *A_x_main, double *A_y_main, double *A_z_main, 
   double *T_U_rat_main, double *M_pe_main, double *halfmass_r_main, double *misc_54_main, double *misc_55_main, double *misc_56_main,
-  double *misc_57_main, double *misc_58_main, double *misc_59_main, double *misc_60_main, int *sub_merger_start, int *sub_merger_end,
-  int *main_halo_start, int *main_halo_end) {
+  double *misc_57_main, double *misc_58_main, double *misc_59_main, double *misc_60_main, double *num_subs_main, double *max_sub_mass_main,
+  int *sub_merger_start, int *sub_merger_end, int *main_halo_start, int *main_halo_end) {
     
     a_main[0] = a[0];
     ID_main[0] = ID[0];
@@ -180,83 +245,103 @@ void calc_subs(int *len_main, int *num_subs, double *a, double *ID, double *desc
     misc_58_main[0] = misc_58[0];
     misc_59_main[0] = misc_59[0];
     misc_60_main[0] = misc_60[0];
+    num_subs_main[0] = 0;
+    max_sub_mass_main[0] = 0;
 
 
     int i;
     int j = 1;
     for (i=1; i<len_tree; i++) {
-        //printf("i is: %d\n", i);
-        //printf("descID is %lf and ID_main is %lf\n", descID[i], ID_main[j-1]);
         if (descID[i] == ID_main[j-1]) {
-//            if (pid[i] == -1.0) {
-//                printf("Is it the mmp? %lf\n", mmp[i]);
-                if (mmp[i] == 1.0) {
-//                    printf("Writing main halo arrays for scale: %lf\n", a[j]);
-                    a_main[j] = a[i];
-//                    printf("just wrote a_main, it is now %lf\n", a_main[j]);
-                    ID_main[j] = ID[i];
-                    desc_scale_main[j] = desc_scale[i];
-                    descID_main[j] = descID[i];
-                    num_prog_main[j] = num_prog[i];
-                    pid_main[j] = pid[i];
-                    Upid_main[j] = Upid[i];
-                    desc_pid_main[j] = desc_pid[i];
-                    phantom_main[j] = phantom[i];
-                    SAM_mvir_main[j] = SAM_mvir[i];
-                    mvir_main[j] = mvir[i];
-                    rvir_main[j] = rvir[i];
-                    r_s_main[j] = r_s[i];
-                    Vrms_main[j] = Vrms[i];
-                    mmp_main[j] = mmp[i];
-                    last_MM_scale_main[j] = last_MM_scale[i];
-                    Vmax_main[j] = Vmax[i];
-                    x_coord_main[j] = x_coord[i];
-                    y_coord_main[j] = y_coord[i];
-                    z_coord_main[j] = z_coord[i];
-                    x_vel_main[j] = x_vel[i];
-                    y_vel_main[j] = y_vel[i];
-                    z_vel_main[j] = z_vel[i];
-                    x_ang_main[j] = x_ang[i];
-                    y_ang_main[j] = y_ang[i];
-                    z_ang_main[j] = z_ang[i];
-                    spin_main[j] = spin[i];
-                    breadth_first_ID_main[j] = breadth_first_ID[i];
-                    depth_first_ID_main[j] = depth_first_ID[i];
-                    tree_root_ID_main[j] = tree_root_ID[i];
-                    orig_halo_ID_main[j] = orig_halo_ID[i];
-                    snap_num_main[j] = snap_num[i];
-                    next_coprog_dep_ID_main[j] = next_coprog_dep_ID[i];
-                    last_mainleaf_dep_ID_main[j] = last_mainleaf_dep_ID[i];
-                    tidal_F_main[j] = tidal_F[i];
-                    tidal_ID_main[j] = tidal_ID[i];
-                    r_s_klyp_main[j] = r_s_klyp[i];
-                    M200b_all_main[j] = M200b_all[i];
-                    M200b_1_main[j] = M200b_1[i];
-                    M200b_2_main[j] = M200b_2[i];
-                    M200b_3_main[j] = M200b_3[i];
-                    M200b_4_main[j] = M200b_4[i];
-                    Xoff_main[j] = Xoff[i];
-                    Voff_main[j] = Voff[i];
-                    spin_bull_main[j] = spin_bull[i];
-                    b_to_a_main[j] = b_to_a[i];
-                    c_to_a_main[j] = c_to_a[i];
-                    A_x_main[j] = A_x[i];
-                    A_y_main[j] = A_y[i];
-                    A_z_main[j] = A_z[i];
-                    T_U_rat_main[j] = T_U_rat[i];
-                    M_pe_main[j] = M_pe[i];
-                    halfmass_r_main[j] = halfmass_r[i];
-                    misc_54_main[j] = misc_54[i];
-                    misc_55_main[j] = misc_55[i];
-                    misc_56_main[j] = misc_56[i];
-                    misc_57_main[j] = misc_57[i];
-                    misc_58_main[j] = misc_58[i];
-                    misc_59_main[j] = misc_59[i];
-                    misc_60_main[j] = misc_60[i];
-                    j ++;
-                 }
-             //}
+            if (mmp[i] == 1.0) {
+                a_main[j] = a[i];
+                ID_main[j] = ID[i];
+                desc_scale_main[j] = desc_scale[i];
+                descID_main[j] = descID[i];
+                num_prog_main[j] = num_prog[i];
+                pid_main[j] = pid[i];
+                Upid_main[j] = Upid[i];
+                desc_pid_main[j] = desc_pid[i];
+                phantom_main[j] = phantom[i];
+                SAM_mvir_main[j] = SAM_mvir[i];
+                mvir_main[j] = mvir[i];
+                rvir_main[j] = rvir[i];
+                r_s_main[j] = r_s[i];
+                Vrms_main[j] = Vrms[i];
+                mmp_main[j] = mmp[i];
+                last_MM_scale_main[j] = last_MM_scale[i];
+                Vmax_main[j] = Vmax[i];
+                x_coord_main[j] = x_coord[i];
+                y_coord_main[j] = y_coord[i];
+                z_coord_main[j] = z_coord[i];
+                x_vel_main[j] = x_vel[i];
+                y_vel_main[j] = y_vel[i];
+                z_vel_main[j] = z_vel[i];
+                x_ang_main[j] = x_ang[i];
+                y_ang_main[j] = y_ang[i];
+                z_ang_main[j] = z_ang[i];
+                spin_main[j] = spin[i];
+                breadth_first_ID_main[j] = breadth_first_ID[i];
+                depth_first_ID_main[j] = depth_first_ID[i];
+                tree_root_ID_main[j] = tree_root_ID[i];
+                orig_halo_ID_main[j] = orig_halo_ID[i];
+                snap_num_main[j] = snap_num[i];
+                next_coprog_dep_ID_main[j] = next_coprog_dep_ID[i];
+                last_mainleaf_dep_ID_main[j] = last_mainleaf_dep_ID[i];
+                tidal_F_main[j] = tidal_F[i];
+                tidal_ID_main[j] = tidal_ID[i];
+                r_s_klyp_main[j] = r_s_klyp[i];
+                M200b_all_main[j] = M200b_all[i];
+                M200b_1_main[j] = M200b_1[i];
+                M200b_2_main[j] = M200b_2[i];
+                M200b_3_main[j] = M200b_3[i];
+                M200b_4_main[j] = M200b_4[i];
+                Xoff_main[j] = Xoff[i];
+                Voff_main[j] = Voff[i];
+                spin_bull_main[j] = spin_bull[i];
+                b_to_a_main[j] = b_to_a[i];
+                c_to_a_main[j] = c_to_a[i];
+                A_x_main[j] = A_x[i];
+                A_y_main[j] = A_y[i];
+                A_z_main[j] = A_z[i];
+                T_U_rat_main[j] = T_U_rat[i];
+                M_pe_main[j] = M_pe[i];
+                halfmass_r_main[j] = halfmass_r[i];
+                misc_54_main[j] = misc_54[i];
+                misc_55_main[j] = misc_55[i];
+                misc_56_main[j] = misc_56[i];
+                misc_57_main[j] = misc_57[i];
+                misc_58_main[j] = misc_58[i];
+                misc_59_main[j] = misc_59[i];
+                misc_60_main[j] = misc_60[i];
+                j ++;
+             }
          }
+     }
+
+     double num_host_subs = 0;
+     double max_host_sub_mass = 0.0;
+     j = 0;
+     for (i=0; i<len_tree; i++) {
+        if (a[i] == a_main[j]) {
+           if (Upid[i] == ID_main[j]) {
+              num_host_subs ++;
+              if mvir[i] > max_host_sub_mass {
+                   max_host_sub_mass = mvir[i]
+              }
+           }
+        }
+        else {
+           num_subs_main[j] = num_host_subs;
+           max_sub_mass_main[j] = max_host_sub_mass;
+           j ++;
+           if (Upid[i] == ID_main[j]) {
+             num_host_subs ++;
+             if mvir[i] > max_host_sub_mass {
+                 max_host_sub_mass = mvir[i]
+             }
+           }
+        }
      }
 
      int l = 0;
@@ -270,21 +355,19 @@ void calc_subs(int *len_main, int *num_subs, double *a, double *ID, double *desc
          for (m=0; m < len_tree; m++) {
             if (descID[m] == ID_main[n]) {
                 if (Upid[m] == ID_main[n+1]) {
-             //       printf("Found a sub! At scale: %lf\n", a[m]);
-        sub_endID = ID[m];
+                    sub_endID = ID[m];
                     main_ind = n+2;
                     for(p=m+1; p<len_tree; p++) {
                         if (descID[p] == sub_endID) {
-              sub_endID = ID[p];
-              if (Upid[p] == ID_main[main_ind]) {
-              entry_mass = mvir[p];
-          entry_index = p;
-              entry_host_index = main_ind;
-        main_ind ++;
-          //    printf("It's still living inside\n");
-          }
-          else 
-                                break;
+                           sub_endID = ID[p];
+                           if (Upid[p] == ID_main[main_ind]) {
+                              entry_mass = mvir[p];
+                              entry_index = p;
+                              entry_host_index = main_ind;
+                              main_ind ++;
+                           }
+                        else 
+                           break;
                         }
                     }
                     if (entry_mass > 1000*3.3e7) {
@@ -302,7 +385,7 @@ void calc_subs(int *len_main, int *num_subs, double *a, double *ID, double *desc
      *num_subs = l;
 }
 
-void find_main_subs(double *a, double *ID, double *desc_scale, double *descID, 
+void find_main_subs(char *tree_name, FILE *haloprop_file, double *a, double *ID, double *desc_scale, double *descID, 
   double *num_prog, double *pid, double *Upid, double *desc_pid, double *phantom, double *SAM_mvir, 
   double *mvir, double *rvir, double *r_s, double *Vrms, double *mmp, double *last_MM_scale, 
   double *Vmax, double *x_coord, double *y_coord, double *z_coord, double *x_vel, double *y_vel, 
@@ -400,6 +483,8 @@ void find_main_subs(double *a, double *ID, double *desc_scale, double *descID,
    double *misc_58_main = malloc(1000*sizeof(double));
    double *misc_59_main = malloc(1000*sizeof(double));
    double *misc_60_main = malloc(1000*sizeof(double));
+   double *num_subs_main = malloc(1000*sizeof(double));
+   double *max_sub_mass_main = malloc(1000*sizeof(double));
    
    //and an array to keep track of sub-mergers
    int *sub_merger_start = malloc(len_tree*sizeof(int));
@@ -420,7 +505,8 @@ void find_main_subs(double *a, double *ID, double *desc_scale, double *descID,
    tree_root_ID_main, orig_halo_ID_main, snap_num_main, next_coprog_dep_ID_main, last_mainleaf_dep_ID_main, tidal_F_main, tidal_ID_main,
    r_s_klyp_main, M200b_all_main, M200b_1_main, M200b_2_main, M200b_3_main, M200b_4_main, Xoff_main, Voff_main, spin_bull_main, b_to_a_main,
    c_to_a_main, A_x_main, A_y_main, A_z_main, T_U_rat_main, M_pe_main, halfmass_r_main, misc_54_main, misc_55_main, misc_56_main, 
-   misc_57_main, misc_58_main, misc_59_main, misc_60_main, sub_merger_start, sub_merger_end, main_halo_start, main_halo_end);
+   misc_57_main, misc_58_main, misc_59_main, misc_60_main, num_subs_main, max_sub_mass_main, sub_merger_start, sub_merger_end, 
+   main_halo_start, main_halo_end);
 
  //  printf("len_main is: %d\n", len_main);
  //  printf("num_subs is: %d\n", num_subs);
@@ -486,21 +572,28 @@ void find_main_subs(double *a, double *ID, double *desc_scale, double *descID,
    misc_58_main = realloc(misc_58_main, len_main*sizeof(double));
    misc_59_main = realloc(misc_59_main, len_main*sizeof(double));
    misc_60_main = realloc(misc_60_main, len_main*sizeof(double));
+   num_subs_main = realloc(misc_59_main, len_main*sizeof(double));
+   max_sub_mass_main = realloc(misc_60_main, len_main*sizeof(double));
    sub_merger_start = realloc(sub_merger_start, number_of_subs*sizeof(int));
    sub_merger_end = realloc(sub_merger_end, number_of_subs*sizeof(int));
    main_halo_start = realloc(main_halo_start, number_of_subs*sizeof(int));
    main_halo_end = realloc(main_halo_end, number_of_subs*sizeof(int));
- 
+
    //write the files
-   if (halo_num % 100 == 0)
-       printf("Writing sub/main files for halo %d\n", halo_num);
-   FILE *out_file;
-   char *filename = malloc(40*sizeof(char));
-   snprintf(filename, sizeof(char) * 40, "tree_%d_%d_%d_halo_%d_submerger.txt",file_ident_1,file_ident_2,file_ident_3,halo_num);
-   out_file = fopen(filename, "w");
-   write_submerger(out_file, sub_merger_start, sub_merger_end, main_halo_start, main_halo_end, number_of_subs);
-   fclose(out_file);
-   free(filename);
+   write_submerger(haloprop_file, tree_name, halo_num, sub_merger_start, sub_merger_end, main_halo_start, main_halo_end, number_of_subs,
+              a_main, ID_main, desc_scale_main, descID_main, num_prog_main, pid_main, Upid_main, desc_pid_main, 
+              phantom_main, SAM_mvir_main, mvir_main, rvir_main, r_s_main, Vrms_main, mmp_main, last_MM_scale_main, Vmax_main, 
+              x_coord_main, y_coord_main, z_coord_main, x_vel_main, y_vel_main, z_vel_main, x_ang_main, y_ang_main, z_ang_main, 
+              spin_main, breadth_first_ID_main, depth_first_ID_main, tree_root_ID_main, orig_halo_ID_main, snap_num_main, 
+              next_coprog_dep_ID_main, last_mainleaf_dep_ID_main, tidal_F_main, tidal_ID_main, r_s_klyp_main, 
+              M200b_all_main, M200b_1_main, M200b_2_main, M200b_3_main, M200b_4_main, Xoff_main, Voff_main, spin_bull_main,
+              b_to_a_main, c_to_a_main, A_x_main, A_y_main, A_z_main, T_U_rat_main, M_pe_main, halfmass_r_main, 
+              misc_54_main, misc_55_main, misc_56_main, misc_57_main, misc_58_main, misc_59_main, misc_60_main, num_subs_main,
+              max_sub_mass_main, a, ID, desc_scale, descID, num_prog, pid, Upid, desc_pid, phantom, SAM_mvir, mvir, rvir, r_s, 
+              Vrms, mmp, last_MM_scale, Vmax, x_coord, y_coord, z_coord, x_vel, y_vel, z_vel, x_ang, y_ang, z_ang, spin, 
+              breadth_first_ID, depth_first_ID, tree_root_ID, orig_halo_ID, snap_num, next_coprog_dep_ID, last_mainleaf_dep_ID, 
+              tidal_F, tidal_ID, r_s_klyp, M200b_all, M200b_1, M200b_2, M200b_3, M200b_4, Xoff, Voff, spin_bull, b_to_a, c_to_a, 
+              A_x, A_y, A_z, T_U_rat, M_pe, halfmass_r, misc_54, misc_55, misc_56, misc_57, misc_58, misc_59, misc_60);
 
    FILE *out_file2;
    char *filename2 = malloc(40*sizeof(char));
@@ -513,7 +606,8 @@ void find_main_subs(double *a, double *ID, double *desc_scale, double *descID,
               next_coprog_dep_ID_main, last_mainleaf_dep_ID_main, tidal_F_main, tidal_ID_main, r_s_klyp_main, 
               M200b_all_main, M200b_1_main, M200b_2_main, M200b_3_main, M200b_4_main, Xoff_main, Voff_main, spin_bull_main,
               b_to_a_main, c_to_a_main, A_x_main, A_y_main, A_z_main, T_U_rat_main, M_pe_main, halfmass_r_main, 
-              misc_54_main, misc_55_main, misc_56_main, misc_57_main, misc_58_main, misc_59_main, misc_60_main, len_main);
+              misc_54_main, misc_55_main, misc_56_main, misc_57_main, misc_58_main, misc_59_main, misc_60_main, 
+              num_subs_main, max_sub_mass_main, len_main);
    fclose(out_file2);
    free(filename2);
 
@@ -605,6 +699,14 @@ int main(int argc, char ** argv)
    int file_ident_2 = atoi(argv[4]);
    int file_ident_3 = atoi(argv[5]);
    
+   char tree_name[15];
+   snprintf(tree_name, sizeof(tree_name), "tree_%d_%d_%d",file_ident_1,file_ident_2,file_ident_3);
+
+   FILE *haloprop_file;
+   char *filename = malloc(40*sizeof(char));
+   snprintf(filename, sizeof(char) * 40, "halo_props_tree_%d_%d_%d.txt",file_ident_1,file_ident_2,file_ident_3);
+   haloprop_file = fopen(filename, "w");
+
    int num_halos = 150000;
    //allocate arrays for all of the different parameters
    double *a = malloc(num_halos*sizeof(double));
@@ -752,7 +854,7 @@ int main(int argc, char ** argv)
               if (tree_num % 100 == 0) {
                   printf("Working on tree %d.....\n", tree_num);
               }
-              find_main_subs(a, ID, desc_scale, descID, num_prog, pid, Upid, desc_pid, phantom, SAM_mvir, 
+              find_main_subs(tree_name, haloprop_file, a, ID, desc_scale, descID, num_prog, pid, Upid, desc_pid, phantom, SAM_mvir, 
                 mvir, rvir, r_s, Vrms, mmp, last_MM_scale, Vmax, x_coord, y_coord, z_coord, x_vel, y_vel, z_vel, 
                 x_ang, y_ang, z_ang, spin, breadth_first_ID, depth_first_ID, tree_root_ID, orig_halo_ID, snap_num, 
                 next_coprog_dep_ID, last_mainleaf_dep_ID, tidal_F, tidal_ID, r_s_klyp, M200b_all, M200b_1, M200b_2, 
@@ -907,6 +1009,9 @@ int main(int argc, char ** argv)
    free(misc_58);
    free(misc_59);
    free(misc_60);
+
+   fclose(haloprop_file);
+   free(filename);
 
    return 0;     
 }
