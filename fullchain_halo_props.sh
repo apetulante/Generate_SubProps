@@ -15,7 +15,7 @@ python get_tree_range.py $tree_start1 $tree_start2 $tree_start3 $tree_end1 $tree
 while IFS='' read -r tree || [[ -n "$tree" ]]; do
     echo " Working on: $tree"
 
-    cp $DATA_PATH .
+    cp /fs2/shared/petulaa/sorted_trees/${tree}.dat .
     
     treenum1=$(echo "$tree" | awk -F '_' '{print $2}' )
     treenum2=$(echo "$tree" | awk -F '_' '{print $3}' )
@@ -26,31 +26,27 @@ while IFS='' read -r tree || [[ -n "$tree" ]]; do
     rm ${tree}.dat
 
     echo "Getting rid of comment lines..."
-    awk '!/#tree/{print}' ${tree}.txt > temp_${tree}.txt
+    sed '/^#/ d' < ${tree}.txt > temp_${tree}.txt    
     mv temp_${tree}.txt ${tree}.txt
 
     echo "Counting lines in file..."
     lines=`cat ${tree}.txt | wc -l`
    
     echo "Starting the splitter code"
-    ./tree_filesplitter_plussubs ${tree}.txt $lines $treenum1 $treenum2 $treenum3
-    num_split_trees=`ls ${tree}_halo_*[0-9].txt | wc -l`
+    ./full_split_halos ${tree}.txt $lines $treenum1 $treenum2 $treenum3
     rm ${tree}.txt  
-    
-    for ((halonum=1;halonum<=num_split_trees;halonum++)); do
-        lines_halo=`cat ${tree}_halo_${halonum}.txt | wc -l`
-        ./sub_main_finder ${tree}_halo_${halonum}.txt $lines_halo $treenum1 $treenum2 $treenum3 $halonum
-    done
 
-    python halo_properties_individualTree.py $tree $num_split_trees
+    python halo_properties_fullChain.py $tree
 
-    cat ${tree}_halo_properties.txt >> halo_properties_${1}_to_${2}.txt
-    
+    cat halo_props_${tree}.txt >> halo_properties_${1}_to_${2}.txt
+    cat halo_props_${tree}_survivors.txt >> halo_properties_${1}_to_${2}.txt    
+
     rm ${tree}_halo_1*
     rm ${tree}_halo_2*
     rm ${tree}_halo_3*
     rm ${tree}_halo_4*
     rm ${tree}_halo_5*
     rm ${tree}_halo_*
- 
+    rm ${tree}_subs_today.txt
+    rm halo_props_${tree}*
 done < "tree_range_tree_${tree_start1}_${tree_start2}_${tree_start3}_to_tree_${tree_end1}_${tree_end2}_${tree_end3}.txt" 
